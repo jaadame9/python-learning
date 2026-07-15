@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>{% block title %}Movie & Series Tracker{% endblock %}</title>
+  <style>
+    body { font-family: system-ui, sans-serif; max-width: 900px; margin: 2rem auto; padding: 0 1rem; color: #1a1a1a; }
+    nav a { margin-right: 1rem; }
+    table { width: 100%; border-collapse: collapse; margin-top: 1rem; }
+    th, td { text-align: left; padding: 0.5rem; border-bottom: 1px solid #ddd; }
+    form.filters { display: flex; gap: 0.75rem; align-items: end; flex-wrap: wrap; margin-top: 1rem; }
+    form.filters label { display: block; font-size: 0.8rem; color: #555; }
+    .actions form { display: inline; }
+    .badge { display: inline-block; padding: 0.1rem 0.5rem; border-radius: 0.75rem; background: #eee; font-size: 0.8rem; }
+    .entry-form label { display: block; margin-top: 0.75rem; font-weight: 600; }
+    .entry-form input, .entry-form select, .entry-form textarea { width: 100%; padding: 0.4rem; margin-top: 0.2rem; box-sizing: border-box; }
+    .entry-form .row { display: flex; gap: 1rem; }
+    .entry-form .row > div { flex: 1; }
+    button, .button { margin-top: 1rem; padding: 0.5rem 1rem; cursor: pointer; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a href="{{ url_for('index') }}">All entries</a>
+    <a href="{{ url_for('add') }}">Add new</a>
+    <a href="{{ url_for('stats') }}">Stats</a>
+  </nav>
+  <hr>
+  {% block content %}{% endblock %}
+</body>
+</html>

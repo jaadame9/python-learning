@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+{% block title %}All entries - Movie & Series Tracker{% endblock %}
+{% block content %}
+<h1>Your entries</h1>
+
+<form class="filters" method="get">
+  <div>
+    <label for="type">Type</label>
+    <select name="type" id="type">
+      <option value="">All</option>
+      {% for t in types %}
+        <option value="{{ t }}" {% if selected_type == t %}selected{% endif %}>{{ t }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div>
+    <label for="status">Status</label>
+    <select name="status" id="status">
+      <option value="">All</option>
+      {% for s in statuses %}
+        <option value="{{ s }}" {% if selected_status == s %}selected{% endif %}>{{ s }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div>
+    <label for="sort">Sort by</label>
+    <select name="sort" id="sort">
+      {% for field in ["title", "rating", "status", "type", "created_at", "updated_at"] %}
+        <option value="{{ field }}" {% if selected_sort == field %}selected{% endif %}>{{ field }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div><button type="submit">Filter</button></div>
+</form>
+
+{% if entries %}
+<table>
+  <thead>
+    <tr>
+      <th>Title</th><th>Type</th><th>Status</th><th>Progress</th><th>Rating</th><th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for e in entries %}
+    <tr>
+      <td>{{ e.title }}</td>
+      <td>{{ e.type }}</td>
+      <td><span class="badge">{{ e.status }}</span></td>
+      <td>
+        {% if e.type == "series" and (e.current_season or e.current_episode) %}
+          S{{ e.current_season or "?" }}E{{ e.current_episode or "?" }}{% if e.total_episodes %}/{{ e.total_episodes }}{% endif %}
+        {% endif %}
+      </td>
+      <td>{% if e.rating %}{{ e.rating }}/10{% endif %}</td>
+      <td class="actions">
+        <a href="{{ url_for('edit', entry_id=e.id) }}">Edit</a>
+        <form method="post" action="{{ url_for('delete', entry_id=e.id) }}" onsubmit="return confirm('Delete this entry?');">
+          <button type="submit">Delete</button>
+        </form>
+      </td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% else %}
+<p>No entries yet. <a href="{{ url_for('add') }}">Add your first one</a>.</p>
+{% endif %}
+{% endblock %}
