@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Stats - Movie & Series Tracker{% endblock %}
+{% block content %}
+<h1>Stats</h1>
+<p><strong>Total entries:</strong> {{ stats.total }}</p>
+<p><strong>Average rating:</strong> {{ stats.avg_rating if stats.avg_rating is not none else "-" }}</p>
+
+<h2>By status</h2>
+<table>
+  <tbody>
+    {% for s in statuses %}
+    <tr><td>{{ s }}</td><td>{{ stats.by_status.get(s, 0) }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<h2>By type</h2>
+<table>
+  <tbody>
+    {% for t in types %}
+    <tr><td>{{ t }}</td><td>{{ stats.by_type.get(t, 0) }}</td></tr>
+    {% endfor %}
+  </tbody>
+</table>
+{% endblock %}

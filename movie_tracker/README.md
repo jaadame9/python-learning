@@ -39,8 +39,20 @@ python tracker.py stats
 - `current_season` / `current_episode` / `total_episodes`: progress tracking for series
 - `notes`: free text (optional)
 
+## Web UI
+
+A Flask web UI is included, backed by the same `tracker.db` as the CLI —
+entries added in one are visible in the other.
+
+```bash
+pip install -r requirements.txt
+python app.py
+```
+
+Then open http://127.0.0.1:5000 to browse, filter, add, edit, and delete
+entries, and view stats.
+
 ## Next steps (ideas)
 
-- Web UI (Flask/Streamlit) on top of the same SQLite data
 - Auto-fill metadata (poster, genre, episode counts) from a movie API like TMDb
 - Recommendations based on genre/rating history

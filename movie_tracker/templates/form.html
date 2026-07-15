@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+{% block title %}{{ "Edit" if entry else "Add" }} entry - Movie & Series Tracker{% endblock %}
+{% block content %}
+<h1>{{ "Edit" if entry else "Add" }} entry</h1>
+
+<form class="entry-form" method="post">
+  <label for="title">Title</label>
+  <input type="text" name="title" id="title" required value="{{ entry.title if entry else '' }}">
+
+  <div class="row">
+    <div>
+      <label for="type">Type</label>
+      <select name="type" id="type">
+        {% for t in types %}
+          <option value="{{ t }}" {% if entry and entry.type == t %}selected{% endif %}>{{ t }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="status">Status</label>
+      <select name="status" id="status">
+        {% for s in statuses %}
+          <option value="{{ s }}" {% if entry and entry.status == s %}selected{% endif %}>{{ s }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div>
+      <label for="rating">Rating (1-10)</label>
+      <input type="number" name="rating" id="rating" min="1" max="10" value="{{ entry.rating if entry and entry.rating else '' }}">
+    </div>
+  </div>
+
+  <div class="row">
+    <div>
+      <label for="current_season">Season</label>
+      <input type="number" name="current_season" id="current_season" min="0" value="{{ entry.current_season if entry and entry.current_season else '' }}">
+    </div>
+    <div>
+      <label for="current_episode">Episode</label>
+      <input type="number" name="current_episode" id="current_episode" min="0" value="{{ entry.current_episode if entry and entry.current_episode else '' }}">
+    </div>
+    <div>
+      <label for="total_episodes">Total episodes</label>
+      <input type="number" name="total_episodes" id="total_episodes" min="0" value="{{ entry.total_episodes if entry and entry.total_episodes else '' }}">
+    </div>
+  </div>
+
+  <label for="notes">Notes</label>
+  <textarea name="notes" id="notes" rows="3">{{ entry.notes if entry and entry.notes else '' }}</textarea>
+
+  <button type="submit">{{ "Save changes" if entry else "Add entry" }}</button>
+</form>
+{% endblock %}
