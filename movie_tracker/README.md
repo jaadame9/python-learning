@@ -52,6 +52,25 @@ python app.py
 Then open http://127.0.0.1:5000 to browse, filter, add, edit, and delete
 entries, and view stats.
 
+## Running on Android (Termux)
+
+The web UI can run directly on your phone with no computer required:
+
+1. Install Termux from F-Droid (the Play Store build is outdated): https://f-droid.org/en/packages/com.termux/
+2. In Termux:
+   ```bash
+   pkg update && pkg upgrade
+   pkg install python git
+   git clone https://github.com/jaadame9/python-learning.git
+   cd python-learning/movie_tracker
+   pip install -r requirements.txt
+   python app.py
+   ```
+3. Open your phone's browser and go to `http://127.0.0.1:5000`.
+
+The `tracker.db` file lives in the phone's storage, so your data stays on
+the device and works offline.
+
 ## Next steps (ideas)
 
 - Auto-fill metadata (poster, genre, episode counts) from a movie API like TMDb
